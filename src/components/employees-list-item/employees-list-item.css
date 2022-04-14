@@ -1,0 +1,22 @@
+.btn-sm {
+    margin-right: 5px;
+    border: none;
+}
+
+i.fa-cookie {
+    color: rgb(230, 150, 30)
+}
+
+i.fa-trash {
+    color: rgb(230, 30, 30)
+}
+
+i.fa-star {
+    color: rgb(255, 240, 27)
+}
+
+input {
+    display: flex;
+    border: none;
+    width: 80%;
+}
