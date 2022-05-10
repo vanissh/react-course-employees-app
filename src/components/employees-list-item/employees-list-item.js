@@ -3,45 +3,40 @@ import './employees-list-item.css'
 
 class EmployeesListItem extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            increase: false,
-            like: false
-        }
-    }
+//increase должен приходить из props
+//удалить из локального state
 
-    onIncrease = () => {
-        this.setState(({increase}) => ({increase: !increase}))
-    }
+    // constructor(props){
+    //     super(props)
 
-    onLike = () => {
-        this.setState(({like}) => ({like: !like}))
-    }
+    // }
+
+    // onLike = () => {
+    //     this.setState(({like}) => ({like: !like}))
+    // }
 
     render(){
-        const {name, salary, onDelete} = this.props
-        const {increase, like} = this.state
+        const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} = this.props
 
         let classNames ="list-group-item d-flex justify-content-between"
         if (increase) {
             classNames += ' increase'
         }
-        if (like) {
+        if (rise) {
             classNames += ' like'
         }
 
         return (
             <li className={classNames}>
                 <span className="list-group-item-label"
-                        onClick={this.onLike}
+                        onClick={onToggleRise}
                     >
                 {name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
                 <div className="d-flex justify-content-center align-items-center">
                     <button 
                         className="btn-cookie btn-sm"
-                        onClick={this.onIncrease}
+                        onClick={onToggleIncrease}
                         >
                         <i className="fas fa-cookie"></i>
                     </button>

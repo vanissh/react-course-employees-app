@@ -24,30 +24,53 @@ class App extends Component {
         super()
         this.state = {
             data: [
-                {name: "John M.", salary: '1000', increase: true},
-                {name: "Jack D.", salary: '500', increase: false},
-                {name: "Alexa G.", salary: '800', increase: false}
+                {name: "John M.", salary: '1000', increase: true, rise: false},
+                {name: "Jack D.", salary: '500', increase: false, rise: false},
+                {name: "Alexa G.", salary: '800', increase: false, rise: false}
             ]
         }
     }
 
-    deleteItem = (id) => {
-        const newData = [...this.state.data].filter((_, i) => i !== id)
-
+    setData = (newData) => {
         this.setState({data: newData})
     }
 
+    getCopy = () => [...this.state.data]
+
+    deleteItem = (id) => {
+        const newData = this.getCopy().filter((_, i) => i !== id)
+
+       this.setData(newData)
+    }
+
     addItem = (emp) => {
-        const newData = [...this.state.data]
+        emp.increase = false
+        const newData = this.getCopy()
         newData.push(emp)
+
+        this.setData(newData)
+    }
+
+    onToggleIncrease = (id) => {
+        const newData = this.getCopy()
+        newData.forEach((item, i) => i === id ? item.increase = !item.increase : '')
         
-        this.setState({data: newData})
+        this.setData(newData)
+    }
+
+    onToggleRise = (id) => {
+        const newData = this.getCopy()
+        newData.forEach((item, i) => i === id ? item.rise = !item.rise : '')
+        
+        this.setData(newData)
     }
 
     render(){
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo
+                    data={this.state.data}
+                />
 
                 <div className="search-panel">
                     <SearchPanel/>
@@ -56,7 +79,10 @@ class App extends Component {
 
                 <EmployeesList 
                     data={this.state.data}
-                    onDelete={this.deleteItem}/>
+                    onDelete={this.deleteItem}
+                    onToggleIncrease={this.onToggleIncrease}
+                    onToggleRise={this.onToggleRise}
+                    />
                 <EmployeesAddForm 
                     onAdd={this.addItem}/>
             </div>
@@ -65,3 +91,6 @@ class App extends Component {
 }
 
 export default App
+
+//подьем состояние -  state-lifting - подъем данных вверх по иерархии в главный компонент, 
+//где хранятся все данные
