@@ -6,17 +6,8 @@ class EmployeesListItem extends Component {
 //increase должен приходить из props
 //удалить из локального state
 
-    // constructor(props){
-    //     super(props)
-
-    // }
-
-    // onLike = () => {
-    //     this.setState(({like}) => ({like: !like}))
-    // }
-
     render(){
-        const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, rise} = this.props
+        const {name, salary, onDelete, onToggleProp, increase, rise} = this.props
 
         let classNames ="list-group-item d-flex justify-content-between"
         if (increase) {
@@ -29,14 +20,14 @@ class EmployeesListItem extends Component {
         return (
             <li className={classNames}>
                 <span className="list-group-item-label"
-                        onClick={onToggleRise}
+                        onClick={() => onToggleProp('rise')} //передаем название свойства
                     >
                 {name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
                 <div className="d-flex justify-content-center align-items-center">
                     <button 
                         className="btn-cookie btn-sm"
-                        onClick={onToggleIncrease}
+                        onClick={() => onToggleProp('increase')} //передаем название свойства
                         >
                         <i className="fas fa-cookie"></i>
                     </button>

@@ -45,22 +45,16 @@ class App extends Component {
 
     addItem = (emp) => {
         emp.increase = false
+        emp.rise = false
         const newData = this.getCopy()
         newData.push(emp)
 
         this.setData(newData)
     }
 
-    onToggleIncrease = (id) => {
+    onToggleProp = (id, prop) => {
         const newData = this.getCopy()
-        newData.forEach((item, i) => i === id ? item.increase = !item.increase : '')
-        
-        this.setData(newData)
-    }
-
-    onToggleRise = (id) => {
-        const newData = this.getCopy()
-        newData.forEach((item, i) => i === id ? item.rise = !item.rise : '')
+        newData.forEach((item, i) => i === id ? item[prop] = !item[prop] : '')
         
         this.setData(newData)
     }
@@ -80,8 +74,7 @@ class App extends Component {
                 <EmployeesList 
                     data={this.state.data}
                     onDelete={this.deleteItem}
-                    onToggleIncrease={this.onToggleIncrease}
-                    onToggleRise={this.onToggleRise}
+                    onToggleProp={this.onToggleProp}
                     />
                 <EmployeesAddForm 
                     onAdd={this.addItem}/>
