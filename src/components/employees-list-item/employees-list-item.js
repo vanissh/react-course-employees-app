@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import './employees-list-item.css'
+import './employees-list-item.scss'
 
 class EmployeesListItem extends Component {
 
@@ -10,6 +10,8 @@ class EmployeesListItem extends Component {
         const {name, salary, onDelete, onToggleProp, increase, rise} = this.props
 
         let classNames ="list-group-item d-flex justify-content-between"
+
+        //использование динамических стилей
         if (increase) {
             classNames += ' increase'
         }
@@ -20,6 +22,7 @@ class EmployeesListItem extends Component {
         return (
             <li className={classNames}>
                 <span className="list-group-item-label"
+                        tabIndex={0}    
                         onClick={() => onToggleProp('rise')} //передаем название свойства
                     >
                 {name}</span>

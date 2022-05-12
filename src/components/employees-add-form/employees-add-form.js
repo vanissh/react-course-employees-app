@@ -1,6 +1,8 @@
 import { Component } from 'react';
 
-import './employees-add-form.css';
+// import './employees-add-form.css';
+import './employees-add-form.scss';
+//npm i sass --save
 
 class EmployeesAddForm extends Component {
     constructor(props){

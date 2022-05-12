@@ -1,6 +1,6 @@
 import { Component } from 'react'
-import './app.css'
-import '../search-panel/search-panel.css'
+import './app.scss'
+import '../search-panel/search-panel.scss'
 import AppInfo from '../app-info/app-info'
 import SearchPanel from '../search-panel/search-panel'
 import AppFilter from '../app-filter/app-filter'
@@ -88,7 +88,6 @@ class App extends Component {
 
     validateEmp = (items, term, filterParam) => {
         const emp = this.searchEmp(items, term)
-        console.log(filterParam)
         return this.filterEmp(emp, filterParam)
     }
 
