@@ -1,8 +1,6 @@
 import { Component } from 'react'
 import './app-filter.scss'
 
-//для выбранной кнопки заменяем класс btn-outline-light на btn-light
-//сбросить классы для всех кнопок, навесить заново
 
 class AppFilter extends Component {
     constructor(props){

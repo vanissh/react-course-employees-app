@@ -1,18 +1,18 @@
 import { Component } from 'react';
 
 // import './employees-add-form.css';
+
 import './employees-add-form.scss';
 //npm i sass --save
 
 class EmployeesAddForm extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            name: '',
-            salary: ''
-        }
-    }
 
+    //
+    state = {
+        name: '',
+        salary: ''
+    }
+    
     onValueChange = (e) => {
         this.setState({[e.target.name]: e.target.value}) //es6 - использование квадратных скобок в setstate
     }
@@ -25,6 +25,12 @@ class EmployeesAddForm extends Component {
 
     clearState = () => {
         this.setState({name: '', salary: ''}) //изменение сразу несколький свойств в state
+    }
+
+    //статические методы из нового стандарта, могут быть вызваны на самом классе
+    //например, так работает класс Math.random()
+    static onLog = () => {
+        console.log('Static method')
     }
 
     render(){
@@ -57,5 +63,7 @@ class EmployeesAddForm extends Component {
         )
     }
 }
+
+EmployeesAddForm.onLog()
 
 export default EmployeesAddForm
