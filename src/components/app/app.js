@@ -24,10 +24,13 @@ class App extends Component {
         super()
         this.state = {
             data: [
-                {name: "John M.", salary: '1000', increase: true, rise: false},
-                {name: "Jack D.", salary: '500', increase: false, rise: false},
-                {name: "Alexa G.", salary: '800', increase: false, rise: false}
-            ]
+                {name: "John M.", salary: '1009', increase: true, rise: false, id: 0},
+                {name: "Jack D.", salary: '500', increase: false, rise: false, id: 1},
+                {name: "Alexa G.", salary: '800', increase: false, rise: false, id: 2}
+            ],
+            term: '',
+            filterParam: '',
+            minID: 3
         }
     }
 
@@ -37,7 +40,7 @@ class App extends Component {
 
     getCopy = () => [...this.state.data]
 
-    deleteItem = (id) => {
+    onDeleteItem = (id) => {
         const newData = this.getCopy().filter((_, i) => i !== id)
 
        this.setData(newData)
@@ -46,10 +49,12 @@ class App extends Component {
     addItem = (emp) => {
         emp.increase = false
         emp.rise = false
+        emp.id = this.state.minID
         const newData = this.getCopy()
         newData.push(emp)
 
         this.setData(newData)
+        this.setState({minID: this.state.minID + 1})
     }
 
     onToggleProp = (id, prop) => {
@@ -59,21 +64,64 @@ class App extends Component {
         this.setData(newData)
     }
 
+    searchEmp = (items, term) => {
+        if(!term.length) {
+            return items
+        }
+
+        return items.filter(item => item.name.toLowerCase().indexOf(term.toLowerCase()) > -1) //метод для нахождения подстроки
+    }
+
+    filterEmp = (emp, filterParam) => {
+        if(!filterParam.length || filterParam === 'all') {
+            return emp
+        }
+
+        if(filterParam === 'big-salary') {
+            return emp.filter(item => +item.salary > 1000)
+        }
+
+        if(filterParam === 'to-rise') {
+            return emp.filter(item => item.rise === true)
+        }
+    }
+
+    validateEmp = (items, term, filterParam) => {
+        const emp = this.searchEmp(items, term)
+        console.log(filterParam)
+        return this.filterEmp(emp, filterParam)
+    }
+
+    setFilterParam = (value) => {
+        this.setState({filterParam: value})
+    }
+
+    setTerm = (value) => {
+        this.setState({term: value})
+    }
+
+    //разобрать, почему обновляется не сразу
+    //установить айдишники
+    //почитвть, почему нельзя использовать индексы в массиве как key
+
     render(){
+
+        const {data, term, filterParam} = this.state
+
         return (
             <div className="app">
                 <AppInfo
-                    data={this.state.data}
+                    data={data}
                 />
 
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/>
+                    <SearchPanel setTerm={this.setTerm}/>
+                    <AppFilter setFilter={this.setFilterParam}/>
                 </div>
 
                 <EmployeesList 
-                    data={this.state.data}
-                    onDelete={this.deleteItem}
+                    data={this.validateEmp(data, term, filterParam)}
+                    onDelete={this.onDeleteItem}
                     onToggleProp={this.onToggleProp}
                     />
                 <EmployeesAddForm 
